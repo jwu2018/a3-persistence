@@ -30,7 +30,7 @@
 
 
 
-
+require('dotenv').config()
 
 const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
@@ -40,7 +40,7 @@ const express = require( 'express' ),
 app.use( express.static('public') )
 app.use( express.json() )
 
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+const uri = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@'+process.env.DB_HOST
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
@@ -56,7 +56,7 @@ client.connect()
     // blank query returns all documents
     return collection.find({ }).toArray()
   })
-  // .then( console.log )
+  .then( console.log )
   
 // route to get all docs
 app.get( '/', (req,res) => {
